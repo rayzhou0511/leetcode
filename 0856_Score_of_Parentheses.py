@@ -1,11 +1,12 @@
-class Solution:
-    def scoreOfParentheses(self, s: str) -> int:
-        stack = []
-        cur = 0
-        for c in s:
-            if c == '(':
-                stack.append(cur)
-                cur = 0
+# Hint : 遇到 '(' 就當進到下一層，遇到')'就回到上一層
+class Solution(object):
+    def scoreOfParentheses(self, S):
+        ans = bal = 0
+        for i, x in enumerate(S):
+            if x == '(':
+                bal += 1
             else:
-                cur = stack.pop() + max(1, cur*2)
-        return cur
+                bal -= 1
+                if S[i-1] == '(':
+                    ans += 1 << bal
+        return ans
